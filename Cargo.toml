@@ -4,3 +4,6 @@ version = "0.1.0"
 authors = ["Sverre Johann Bjørke <sverrejb@gmail.com>"]
 
 [dependencies]
+num = "*"
+image = "0.10.1"
+crossbeam = "0.2.9"
