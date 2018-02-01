@@ -3,6 +3,10 @@ name = "mandelbrot"
 version = "0.1.0"
 authors = ["Sverre Johann Bjørke <sverrejb@gmail.com>"]
 
+[lib]
+name = "mandelib"
+path = "src/lib.rs"
+
 [dependencies]
 num = "0.1.41"
 time = "*"
