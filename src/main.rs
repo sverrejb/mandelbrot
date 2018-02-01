@@ -33,16 +33,6 @@ fn parse_complex(s : &str) -> Option<Complex<f64>> {
     }
 }
 
-fn pixel_to_point(bounds: (usize, usize), pixel: (usize, usize), upper_left: Complex<f64>, lower_right: Complex<f64>) -> Complex<f64> {
-    let (width, height) = (lower_right.re - upper_left.re, upper_left.im - lower_right.im);
-
-    Complex {
-        re: upper_left.re + pixel.0 as f64 * width / bounds.0 as f64,
-        im: upper_left.im - pixel.1 as f64 * height / bounds.1 as f64
-    }
-}
-
-
 fn parse_pair<T: FromStr>(s: &str, seperator: char) -> Option<(T, T)>{
     match s.find(seperator) {
         None => None,
@@ -54,6 +44,15 @@ fn parse_pair<T: FromStr>(s: &str, seperator: char) -> Option<(T, T)>{
         }
     }
 
+}
+
+fn pixel_to_point(bounds: (usize, usize), pixel: (usize, usize), upper_left: Complex<f64>, lower_right: Complex<f64>) -> Complex<f64> {
+    let (width, height) = (lower_right.re - upper_left.re, upper_left.im - lower_right.im);
+
+    Complex {
+        re: upper_left.re + pixel.0 as f64 * width / bounds.0 as f64,
+        im: upper_left.im - pixel.1 as f64 * height / bounds.1 as f64
+    }
 }
 
 fn escape_time(c: Complex<f64>, limit: u32) -> Option<u32> {
@@ -95,8 +94,6 @@ fn main() {
     let lower_right = parse_complex(&args[4]).expect("error parsing lower right corner");
 
     let mut pixels = vec![0; bounds.0 * bounds.1];
-
-    //render(&mut pixels, bounds, upper_left, lower_right);
 
     let threads = 8;
     let rows_per_band = bounds.1 / threads + 1;
